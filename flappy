@@ -37,7 +37,6 @@ void setup(){
 //Main Game Loop
 void draw(){
   if(gameState==0){  
-    image(start,0,0);
     setBg();
     setPipes();
     doge();
@@ -109,6 +108,14 @@ void mousePressed(){
   Vky=-9;
 }
 
+void setBg(){
+  image(bg,bgx,0); 
+  image(bg,bgx+bg.width,0);
+  bgx=bgx-1;
+  if(bgx<-bg.width){ //resets image when first image is done
+    bgx=0;
+  }
+}
 void setBg(){
   image(bg,bgx,0); 
   image(bg,bgx+bg.width,0);
