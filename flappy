@@ -118,7 +118,7 @@ void setBg(){
 
 void startScreen(){
   if(gameState==-1){
-    image(start,-75,0);
+    image(start,-45,0);
     if(mousePressed){
     gameState=0;
     }
