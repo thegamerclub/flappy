@@ -1,7 +1,7 @@
 PImage bg,bg2,doge,bottom,top,start;
-float g,Vky,bgx,kx,ky;
+float g,Vky,bgx,kx,dy;
 int[] pipeX,pipeY; //declare 2 arrays
-int gameState,score;
+int gameState,score,hscore;
 /*import processing.sound.*;
 SoundFile file;
 String audioName = "abcde.mp3";
@@ -19,7 +19,7 @@ void setup(){
   top=loadImage("./img/top.png");
   start=loadImage("./img/start.png");
   kx=100;
-  ky=50;
+  dy=50;
   g=0.7; //gravity ==speed of downward acceleration
   pipeX = new int[3]; //[0,0,0,0,0]
   pipeY = new int[pipeX.length];
@@ -47,11 +47,12 @@ void draw(){
     textSize(30);
     text("YOU LOSE",20,100);
     textSize(20);
-    text("ow",kx,ky+40);
+    text("ow",kx,dy+40);
     text("CLCKICK ANYWHER TO REGAME",width/2,height/2);
     if(mousePressed){
       score=0;
       bgx=0;
+      dy=50;
       setPipes();
       gameState=0;
       pipeX = new int[3]; //[0,0,0,0,0]
@@ -69,6 +70,7 @@ void score(){
   fill(255,0,0);
   textSize(32);
   text("Score: " +score,width-170,40);
+  text("Highscore: "+hscore,width-210,80);
 }
 
 void setPipes(){
@@ -85,10 +87,13 @@ void setPipes(){
       pipeY[i]=(int)random(-200,0);
     }
     if(kx>(pipeX[i]-60) && kx <pipeX[i]+57){
-      if(!(ky>pipeY[i] + 300 && ky <pipeY[i]+250+330-62)){
+      if(!(dy>pipeY[i] + 300 && dy <pipeY[i]+250+330-62)){
         gameState=69;
       }else if(kx==pipeX[i]){
         score++;
+        if(score>=hscore){
+          hscore=score;
+        }
       }
     }
   }  
@@ -98,8 +103,8 @@ void setPipes(){
 
 
 void doge(){
-  image(doge,kx,ky);
-  ky=ky+Vky;
+  image(doge,kx,dy);
+  dy=dy+Vky;
   Vky=Vky+g;
 }
 
